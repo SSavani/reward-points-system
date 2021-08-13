@@ -1,23 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
+import PointsPerMonth from './PointsPerMonth';
 
-const TotalPoints = ({ pointsByCustomer }) => {
+const TotalPoints = ({ custID, pointsByCustomer }) => {
+  const [showInfo, setShowInfo] = useState(false);
   return (
     <>
-    <h3>Total Reward Points Per Customer</h3>
-      <table>
-        <tbody>
-          <tr>
-            <th>Customer Name</th>
-            <th>Total Reward Points</th>
-          </tr>
-          {Object.keys(pointsByCustomer).map((custID)=>{
-            return <tr key={custID}>
-              <td>{pointsByCustomer[custID].name}</td>
-              <td>{pointsByCustomer[custID].totalPoints}</td>
-            </tr>
-          })}
-        </tbody>
-      </table>
+      <tr key={custID} className="row">
+        <td>{pointsByCustomer[custID].name}</td>
+        <td>{pointsByCustomer[custID].totalPoints}</td>
+        <td className="expandBtn">
+          <button className="btn" onClick={() => setShowInfo(!showInfo)}>
+            {showInfo ? <FaChevronUp /> : <FaChevronDown />}
+          </button>
+        </td>
+      </tr>
+      <tr className="detailsOuterRow">
+        <td colSpan="3" className="outerRowData">
+          {showInfo && (
+            <PointsPerMonth custID={custID} pointsByCustomer={pointsByCustomer} />
+          )}
+        </td>
+      </tr>
     </>
   );
 };

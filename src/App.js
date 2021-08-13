@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import { useEffect, useState } from 'react';
 import { pointsPerTransaction } from './utils/pointsPerTransaction';
@@ -52,10 +51,31 @@ function App() {
     </main>
   ) : (
     <main>
-      <h2>Reward Points</h2>
-      <div>
-        <TotalPoints pointsByCustomer={pointsByCustomer} />
-        <table>
+      <div className="container">
+        <h3>Total Reward Points / Customer</h3>
+        <div className="tableWrapper">
+          <table className="table">
+            <thead>
+              <tr className="headerRow">
+                <th className="header1">Customer Name</th>
+                <th className="header2">Total Reward Points</th>
+                <th className="header3"></th>
+              </tr>
+            </thead>
+            <tbody className="tableBody">
+              {Object.keys(pointsByCustomer).map((custID) => {
+                return (
+                  <TotalPoints
+                    key={custID}
+                    custID={custID}
+                    pointsByCustomer={pointsByCustomer}
+                  />
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+        {/* <table>
           <tbody>
             <tr>
               <th>Customer Name</th>
@@ -72,7 +92,7 @@ function App() {
               );
             })}
           </tbody>
-        </table>
+        </table> */}
       </div>
     </main>
   );
