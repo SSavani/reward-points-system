@@ -16,11 +16,8 @@ function App() {
     try {
       const response = await fetch(url);
       const newTransactions = await response.json();
-      console.log(newTransactions);
       const ptsPerTrans = pointsPerTransaction(newTransactions);
-      console.log('ppt: ', ptsPerTrans);
       const rewardPoints = pointsPerMonthAndTotal(ptsPerTrans);
-      console.log('ppm: ', rewardPoints);
 
       setTransactions(newTransactions);
       setPerTransactionPoints(ptsPerTrans);
@@ -75,24 +72,6 @@ function App() {
             </tbody>
           </table>
         </div>
-        {/* <table>
-          <tbody>
-            <tr>
-              <th>Customer Name</th>
-              <th>Transaction Amount</th>
-              <th>Transaction Date</th>
-            </tr>
-            {transactions.map((transaction) => {
-              return (
-                <tr key={transaction.id}>
-                  <td>{transaction.name}</td>
-                  <td>{transaction.amount}</td>
-                  <td>{transaction.date}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table> */}
       </div>
     </main>
   );
